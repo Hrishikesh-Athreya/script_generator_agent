@@ -15,6 +15,7 @@ app.middleware("http")(
     require_payment(
         price="0.01",           # $0.01 USDC (default)
         pay_to_address=PAY_TO,  # where you get paid
+        network="base",
         path="/premium/compute" # protect this route
     )
 )
