@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: x402-fastapi
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PAYMENT_WALLET_ADDRESS
+        sync: false   # you’ll set the value in the dashboard
+    healthCheckPath: /health
