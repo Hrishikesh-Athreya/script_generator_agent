@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI
 from dotenv import load_dotenv
+from x402.facilitator import FacilitatorConfig
 from x402.fastapi.middleware import require_payment
 
 load_dotenv()
@@ -16,7 +17,8 @@ app.middleware("http")(
         price="0.01",           # $0.01 USDC (default)
         pay_to_address=PAY_TO,  # where you get paid
         network="base",
-        path="/premium/script" # protect this route
+        path="/premium/script", # protect this route,
+        facilitator_config=FacilitatorConfig(url="https://x402.org/facilitator")
     )
 )
 
