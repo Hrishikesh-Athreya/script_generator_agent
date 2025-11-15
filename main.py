@@ -24,7 +24,7 @@ app.middleware("http")(
 def health():
     return {"ok": True}
 
-@app.post("/premium/compute")
+@app.post("/premium/script")
 def compute(payload: dict):
     input_text = str(payload.get("input", ""))
     return {"result": f"processed:{input_text}"}
