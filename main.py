@@ -11,6 +11,16 @@ if not PAY_TO:
 
 app = FastAPI(title="Paid Service via x402")
 
+from cdp.x402 import create_facilitator_config
+
+CDP_API_KEY_ID = os.getenv("CDP_API_KEY_ID")
+CDP_API_KEY_SECRET = os.getenv("CDP_API_KEY_SECRET")
+
+facilitator_config = create_facilitator_config(
+    api_key_id=CDP_API_KEY_ID,
+    api_key_secret=CDP_API_KEY_SECRET,
+)
+
 # Require $0.01 for this endpoint before running the work
 app.middleware("http")(
     require_payment(
@@ -18,7 +28,7 @@ app.middleware("http")(
         pay_to_address=PAY_TO,  # where you get paid
         network="base",
         path="/premium/script", # protect this route,
-        facilitator_config=FacilitatorConfig(url="https://x402.org/facilitator")
+        facilitator_config=facilitator_config
     )
 )
 
