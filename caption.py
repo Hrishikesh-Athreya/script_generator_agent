@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI
 from dotenv import load_dotenv
+from x402.facilitator import FacilitatorConfig
 from x402.fastapi.middleware import require_payment
 
 load_dotenv()
@@ -23,10 +24,10 @@ facilitator_config = create_facilitator_config(
 # Require $0.01 for this endpoint before running the work
 app.middleware("http")(
     require_payment(
-        price="0.4",           # $0.01 USDC (default)
+        price="0.5",           # $0.01 USDC (default)
         pay_to_address=PAY_TO,  # where you get paid
         network="base",
-        path="/premium/script", # protect this route,
+        path="/premium/caption2", # protect this route,
         facilitator_config=facilitator_config
     )
 )
@@ -35,7 +36,7 @@ app.middleware("http")(
 def health():
     return {"ok": True}
 
-@app.post("/premium/script")
+@app.post("/premium/caption2")
 def compute(payload: dict):
     input_text = str(payload.get("input", ""))
     return {"result": f"processed:{input_text}"}

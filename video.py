@@ -23,10 +23,10 @@ facilitator_config = create_facilitator_config(
 # Require $0.01 for this endpoint before running the work
 app.middleware("http")(
     require_payment(
-        price="0.4",           # $0.01 USDC (default)
+        price="1.0",           # $0.01 USDC (default)
         pay_to_address=PAY_TO,  # where you get paid
         network="base",
-        path="/premium/script", # protect this route,
+        path="/premium/video", # protect this route,
         facilitator_config=facilitator_config
     )
 )
@@ -35,7 +35,7 @@ app.middleware("http")(
 def health():
     return {"ok": True}
 
-@app.post("/premium/script")
+@app.post("/premium/video")
 def compute(payload: dict):
     input_text = str(payload.get("input", ""))
     return {"result": f"processed:{input_text}"}
